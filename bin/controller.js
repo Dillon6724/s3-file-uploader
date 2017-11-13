@@ -1,26 +1,28 @@
-const s3 = require('s3');
+const AWS = require('aws-sdk');
 const config = require('./config.json');
+const fs = require('fs');
+const path = require('path');
+const mime = require('mime-types');
+
+AWS.config.loadFromPath(path.resolve('./bin/config.json'));
+
+const s3 = new AWS.S3({region: 'us-east-1'})
 
 
-// EXAMPLE
-// var params = {
-//   localFile: "some/local/file",
-//
-//   s3Params: {
-//     Bucket: "s3 bucket name",
-//     Key: "some/remote/file",
-//     // other options supported by putObject, except Body and ContentLength.
-//     // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
-//   },
-// };
-// var uploader = client.uploadFile(params);
-// uploader.on('error', function(err) {
-//   console.error("unable to upload:", err.stack);
-// });
-// uploader.on('progress', function() {
-//   console.log("progress", uploader.progressMd5Amount,
-//             uploader.progressAmount, uploader.progressTotal);
-// });
-// uploader.on('end', function() {
-//   console.log("done uploading");
-// });
+exports.upload = (file) => {
+  const params = {
+        Bucket: 'emmisdigitalfileuploader',
+        Key: file.name,
+        ACL: 'public-read',
+        Body: fs.createReadStream(file.path),
+        ContentType: mime.contentType(path.extname(file.path))
+    };
+
+  console.log("processing... ")
+  s3.putObject(params, function (err, data) {
+    if (err) {
+        console.log("Error uploading: ", err);
+      } else {
+        console.log("Successfully uploaded on S3", data);
+      }
+  })}

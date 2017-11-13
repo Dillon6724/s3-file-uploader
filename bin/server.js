@@ -1,17 +1,12 @@
 const express = require('express');
 const app = express();
-const controller = require('./controller.js')
+const controller = require('./controller.js');
+const bodyParser = require('body-parser');
+const multipart = require('connect-multiparty'); //allows us to access file data
+const multipartMiddleware = multipart();
 
-var client = s3.createClient({
-  s3Options: {
-    accessKeyId: config.accessKeyId,
-    secretAccessKey: config.secretAccessKey
-  }
-});
-
-app.post('/upload', (req, res) => {
-  const file = req.body.file;
-  controller.upload(file)
+app.post('/upload', multipartMiddleware, (req, res) => {
+  controller.upload(req.files.file)
 })
 
 app.get('/', (req, res) => {
