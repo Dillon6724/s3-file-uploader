@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 require('./loading.scss')
 
-export default class App extends Component {
+export default class Loading extends Component {
   render() {
 		return (
       <div>

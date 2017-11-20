@@ -1,20 +1,28 @@
 form {
-  width: 35%;
+  width: 20%;
   margin: 0 auto;
-  input {
-    width: 100%;
-    height: 30px;
-    margin: 6px 0px;
-    font-size: 20px;
-    text-align: center;
+  .file-input-container {
+    background-color: #C9CBD1;
+    padding: 30px;
+    input {
+      font-size: 13px;
+      margin: 0 auto;
+      display: block;
+      width: 178px;
+    }
   }
+
   .submit {
-    width: 101%;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    background-color: #2889C3;
+    height: 40px;
     color: white;
     font-size: 20px;
-    border: none;
-    background-color: #2889C3;
-    height: 42px;
-    margin: 10px 0px;
   }
+}
+
+h2 {
+  text-align: center;
 }

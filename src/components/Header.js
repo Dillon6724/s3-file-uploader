@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 require('./header.scss')
 
-export default class App extends Component {
+export default class Header extends Component {
   render() {
 		return (
       <header>

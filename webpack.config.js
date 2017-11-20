@@ -1,7 +1,6 @@
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
@@ -13,7 +12,8 @@ module.exports = {
    contentBase: './src',
  },
  plugins: [
-  new HtmlWebpackPlugin({
+   new DashboardPlugin(),  
+   new HtmlWebpackPlugin({
     template: 'src/index.html'
   }),
  ],

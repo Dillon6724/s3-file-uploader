@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 require('./form.scss')
 
-export default class App extends Component {
+export default class Form extends Component {
   render() {
 		return (
-      <form>
-        <input type="file" onChange={this.props.handleImageChange} multiple/>
-        <button type="submit" onClick={this.props.handleSubmit}>Upload Image</button>
-      </form>
+      <div>
+        <h2>Upload your files</h2>
+        <form>
+          <div className="file-input-container">
+            <input type="file" onChange={this.props.handleImageChange} multiple/>
+          </div>
+          <button className="submit" type="submit" onClick={this.props.handleSubmit}>Upload</button>
+        </form>
+      </div>
 		);
 	}
 }

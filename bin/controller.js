@@ -23,7 +23,7 @@ exports.upload = (file, res) => {
           console.log("Error uploading: ", err);
         } else {
           console.log("Successfully uploaded on S3", data);
-          res.send("hi");
+          res.send({path: `https://s3.amazonaws.com/emmisdigitalfileuploader/${file.originalFilename}`});
         }
     })
 }

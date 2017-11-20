@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 require('./path.scss')
 
-export default class App extends Component {
+export default class Path extends Component {
   render() {
 		return (
-      <div>
-        <h1>here is the pathhhh</h1>
+      <div >
+        <a className="path" href={this.props.pathToFile}>{this.props.pathToFile}</a>
       </div>
 		);
 	}
