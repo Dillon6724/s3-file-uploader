@@ -1,9 +1,9 @@
 form {
-  width: 20%;
+  max-width: 370px;
   margin: 0 auto;
   .file-input-container {
     background-color: #C9CBD1;
-    padding: 30px;
+    padding: 40px;
     input {
       font-size: 13px;
       margin: 0 auto;
@@ -20,6 +20,12 @@ form {
     height: 40px;
     color: white;
     font-size: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #54a9db;
+    }
   }
 }
 

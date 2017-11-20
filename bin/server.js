@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
   res.send("Lemme lemme upload ya")
 })
 
+app.get('/list', (req, res) => {
+  controller.getFiles();
+})
+
 app.listen (3000, () => {
   console.log("listening on 3000")
 })
