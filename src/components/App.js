@@ -12,10 +12,13 @@ export default class App extends Component {
       files: [],
       paths: [],
       loading: false,
+      browsing: false,
+      browsingFiles: [],
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearState = this.clearState.bind(this);
+    this.browse = this.browse.bind(this);
   }
 
   getFiles(files) {
@@ -56,6 +59,18 @@ export default class App extends Component {
       files: [],
       paths: [],
       loading: false,
+      browsing:false,
+      browsingFiles: [],
+    })
+  }
+
+  async browse (e) {
+    e.preventDefault();
+    const res = await fetch("http://localhost:3000/files",{ method: "get"})
+     const files = await res.json()
+    this.setState({
+      browsing: true,
+      browsingFiles: files.data.sort((a, b) => a.Key.localeCompare(b.Key)),
     })
   }
 
@@ -66,9 +81,19 @@ export default class App extends Component {
         {this.state.loading ?
           <Loading />
         : this.state.paths.length > 0 ?
-          <Links paths={this.state.paths} clearState={this.clearState}/>
+          <Links
+            paths={this.state.paths}
+            clearState={this.clearState}
+          />
         :
-          <Form handleSubmit={this.handleSubmit} handleImageChange={this.handleImageChange}/>
+          <Form
+            handleSubmit={this.handleSubmit}
+            handleImageChange={this.handleImageChange}
+            browsing={this.state.browsing}
+            browse={this.browse}
+            clearState={this.clearState}
+            files={this.state.browsingFiles}
+          />
         }
       </div>
     );
