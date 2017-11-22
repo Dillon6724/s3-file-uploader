@@ -51,7 +51,7 @@ export default class App extends Component {
         let file = this.state.files[i];
         const data = await this.sendFile(file);
         paths.push(data.path);
-        if (i === this.state.files.length -1) this.setState({paths, loading:false})
+        if (i === this.state.files.length -1) this.setState({paths, loading:false, browsingFiles: []})
       }
     }
   }
@@ -62,7 +62,6 @@ export default class App extends Component {
       paths: [],
       loading: false,
       browsing:false,
-      browsingFiles: [],
     })
   }
 
