@@ -6,7 +6,6 @@ const multipart = require('connect-multiparty'); //allows us to access file data
 const multipartMiddleware = multipart();
 
 app.post('/upload', multipartMiddleware, (req, res) => {
-  console.log("posting")
   res.setHeader("Access-Control-Allow-Origin", "*");
   controller.upload(req.files.imageFile, res)
 })

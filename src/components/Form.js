@@ -14,7 +14,7 @@ export default class Form extends Component {
               <input type="file" onChange={this.props.handleImageChange} multiple/>
             </div>
             <button className="submit" type="submit" onClick={this.props.handleSubmit}>Upload</button>
-            <button className="submit" type="submit" onClick={this.props.browse}>Browse</button>
+            <button className="submit" type="submit" onClick={this.props.browse}>Library</button>
           </form>
         </div>
         :

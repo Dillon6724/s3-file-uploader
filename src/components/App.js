@@ -44,13 +44,15 @@ export default class App extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    this.setState({loading: true})
-    const paths = []
-    for (var i = 0; i < this.state.files.length; i++) {
-      let file = this.state.files[i];
-      const data = await this.sendFile(file);
-      paths.push(data.path);
-      if (i === this.state.files.length -1) this.setState({paths, loading:false})
+    if (this.state.files.length > 0){
+      this.setState({loading: true})
+      const paths = []
+      for (var i = 0; i < this.state.files.length; i++) {
+        let file = this.state.files[i];
+        const data = await this.sendFile(file);
+        paths.push(data.path);
+        if (i === this.state.files.length -1) this.setState({paths, loading:false})
+      }
     }
   }
 

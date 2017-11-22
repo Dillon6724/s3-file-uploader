@@ -13,11 +13,10 @@ exports.upload = async (file, res) => {
 }
 
 const createUniqueTitle = async (data, title, int, file, res) => {
-  console.log(data.Contents)
   for (let i = 0; i < data.Contents.length; i++) {
     if(data.Contents[i].Key === title) {
       int++
-      const updatedTitle = iterateOnTitle(file.originalFilename);
+      const updatedTitle = iterateOnTitle(file.originalFilename, int);
       createUniqueTitle(data, updatedTitle, int, file, res)
       break
     } else if (i === data.Contents.length -1){
@@ -39,20 +38,19 @@ const uploadFileToS3 = async (title, file, res) => {
     if (err) {
       console.log("Error uploading: ", err);
       } else {
-        console.log("Successfully uploaded on S3", data);
+        console.log("Success: ", data, '\n');
         res.send({path: `https://s3.amazonaws.com/emmisdigitalfileuploader/${title}`});
       }
   })
 }
 
-const iterateOnTitle = (oldTitle) => {
+const iterateOnTitle = (oldTitle, int) => {
   return oldTitle.substring(0, oldTitle.lastIndexOf(".")) + `(${int})` + oldTitle.substring(oldTitle.lastIndexOf("."));
 }
 
 
 exports.getFiles = async (res) => {
   s3.listObjects({Bucket: 'emmisdigitalfileuploader'}, async (err, data) => {
-    console.log(data.Contents)
     res.send({data: data.Contents})
   })
 }
