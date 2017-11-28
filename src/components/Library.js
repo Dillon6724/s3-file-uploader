@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-require('./browse.scss');
+require('./library.scss');
 import File from './File.js'
 
 export default class Browse extends Component {

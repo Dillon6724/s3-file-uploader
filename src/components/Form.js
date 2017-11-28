@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 require('./form.scss');
-import Browse from './browse';
+import Library from './Library';
 
 export default class Form extends Component {
   render() {
@@ -14,13 +14,13 @@ export default class Form extends Component {
               <input type="file" onChange={this.props.handleImageChange} multiple/>
             </div>
             <button className="submit" type="submit" onClick={this.props.handleSubmit}>Upload</button>
-            
+
             <h2>Find your files</h2>
             <button className="submit" type="submit" onClick={this.props.browse}>Library</button>
           </form>
         </div>
         :
-        <Browse files={this.props.files} clearState={this.props.clearState}/>
+        <Library files={this.props.files} clearState={this.props.clearState}/>
         }
       </div>
 		);

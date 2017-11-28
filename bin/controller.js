@@ -54,3 +54,8 @@ exports.getFiles = async (res) => {
     res.send({data: data.Contents})
   })
 }
+
+
+exports.login = async (req, res) => {
+  console.log(req.body)
+}

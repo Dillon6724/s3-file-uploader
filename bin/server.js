@@ -4,10 +4,20 @@ const controller = require('./controller.js');
 const bodyParser = require('body-parser');
 const multipart = require('connect-multiparty'); //allows us to access file data
 const multipartMiddleware = multipart();
+const cors = require('cors');
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false} ));
 
 app.post('/upload', multipartMiddleware, (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   controller.upload(req.files.imageFile, res)
+})
+
+app.post('/login', (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  controller.login(req, res);
 })
 
 app.get('/files', (req, res) => {

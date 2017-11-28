@@ -4,6 +4,7 @@ import Loading from './Loading.js';
 import Header from './Header.js';
 import Form from './Form.js';
 import Links from './Links.js';
+import Login from './Login'
 
 export default class App extends Component {
   constructor(props) {
@@ -14,11 +15,15 @@ export default class App extends Component {
       loading: false,
       browsing: false,
       browsingFiles: [],
+      username: "",
+      password: ""
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearState = this.clearState.bind(this);
     this.browse = this.browse.bind(this);
+    this.login = this.login.bind(this);
+
   }
 
   getFiles(files) {
@@ -75,18 +80,41 @@ export default class App extends Component {
     })
   }
 
+  async login(username, password) {
+    console.log(JSON.stringify({username, password}))
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      body: JSON.stringify({username, password}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    this.setState({username, password})
+  }
+
+  authenticate (username, password) {
+    // const res = await fetch("http://localhost:3000/login",{ method: "post", body:{username, password}})
+    // const files = await res.json()
+    if (username.length > 0 && password.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     return (
       <div>
         <Header />
-        {this.state.loading ?
+        { this.authenticate(this.state.username, this.state.password) && this.state.loading ?
           <Loading />
-        : this.state.paths.length > 0 ?
+        :  this.authenticate(this.state.username, this.state.password) && this.state.paths.length > 0 ?
           <Links
             paths={this.state.paths}
             clearState={this.clearState}
           />
-        :
+        : this.authenticate(this.state.username, this.state.password) ?
           <Form
             handleSubmit={this.handleSubmit}
             handleImageChange={this.handleImageChange}
@@ -95,6 +123,8 @@ export default class App extends Component {
             clearState={this.clearState}
             files={this.state.browsingFiles}
           />
+        :
+          <Login login={this.login}/>
         }
       </div>
     );
