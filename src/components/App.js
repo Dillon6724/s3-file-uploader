@@ -16,7 +16,11 @@ export default class App extends Component {
       browsing: false,
       browsingFiles: [],
       username: "",
-      password: ""
+      password: "",
+      auth: {
+        status:false,
+        message:""
+      }
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -81,52 +85,69 @@ export default class App extends Component {
   }
 
   async login(username, password) {
-    console.log(JSON.stringify({username, password}))
-    fetch("http://localhost:3000/login", {
+    const res = await fetch("http://localhost:3000/login", {
       method: "POST",
       body: JSON.stringify({username, password}),
       headers: {
         'Content-Type': 'application/json'
       }
+    }).then((data) => {
+      return data.json()
+    }).then((res) => {
+      if (res.status) {
+        console.log("login", res)
+        this.setState({username, password})
+      } else {
+        this.setState({loginError: res.message})
+      }
     })
-
-    this.setState({username, password})
   }
 
-  authenticate (username, password) {
-    // const res = await fetch("http://localhost:3000/login",{ method: "post", body:{username, password}})
-    // const files = await res.json()
-    if (username.length > 0 && password.length > 0) {
-      return true
-    } else {
-      return false
-    }
+   authenticate (username, password) {
+     return fetch("http://localhost:3000/login", {
+          method: "POST",
+          body: JSON.stringify({username, password}),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+    })
+    .then((data) => {return data.json()})
+    .then((res) => {
+      console.log(res)
+    })
+  }
+
+  isLoggedIn (username, password) {
+
+
   }
 
   render() {
+    this.isLoggedIn(this.state.username, this.state.password)
     return (
       <div>
-        <Header />
-        { this.authenticate(this.state.username, this.state.password) && this.state.loading ?
-          <Loading />
-        :  this.authenticate(this.state.username, this.state.password) && this.state.paths.length > 0 ?
-          <Links
-            paths={this.state.paths}
-            clearState={this.clearState}
-          />
-        : this.authenticate(this.state.username, this.state.password) ?
-          <Form
-            handleSubmit={this.handleSubmit}
-            handleImageChange={this.handleImageChange}
-            browsing={this.state.browsing}
-            browse={this.browse}
-            clearState={this.clearState}
-            files={this.state.browsingFiles}
-          />
-        :
-          <Login login={this.login}/>
-        }
-      </div>
+          <Header />
+        {   this.authenticate(this.stateusername, this.state.password).then((res) => {console.log(res)})}
+            this.authenticate(this.state.username, this.state.password) && this.state.loading ?
+            <Loading />
+          :  this.authenticate(this.state.username, this.state.password) && this.state.paths.length > 0 ?
+            <Links
+              paths={this.state.paths}
+              clearState={this.clearState}
+            />
+          : this.authenticate(this.state.username, this.state.password) ?
+            <Form
+              handleSubmit={this.handleSubmit}
+              handleImageChange={this.handleImageChange}
+              browsing={this.state.browsing}
+              browse={this.browse}
+              clearState={this.clearState}
+              files={this.state.browsingFiles}
+            />
+          :
+            <Login login={this.login}/>
+          }
+        </div>
     );
 	}
 }

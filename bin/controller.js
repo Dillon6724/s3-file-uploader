@@ -5,6 +5,8 @@ const path = require('path');
 const mime = require('mime-types');
 AWS.config.loadFromPath(path.resolve('./bin/config.json'));
 const s3 = new AWS.S3({region: 'us-east-1'})
+const db = require('./db/queries.js')
+const bcrypt = require('bcrypt')
 
 exports.upload = async (file, res) => {
   s3.listObjects({Bucket: 'emmisdigitalfileuploader'}, async (err, data) => {
@@ -57,5 +59,20 @@ exports.getFiles = async (res) => {
 
 
 exports.login = async (req, res) => {
-  console.log(req.body)
+  const dbUser = await db.getUser(req.body)
+  console.log("db user", dbUser)
+  if(dbUser) {
+    bcrypt.compare(req.body.password, dbUser.password, function(err, matching) {
+      if (matching) {
+        console.log("matching passwords")
+        res.send({status:true, message:'success'})
+      } else {
+        console.log("passords dont match")
+        res.send({status:false, message:'password not matching'})
+      }
+    });
+  } else {
+    console.log("email doesnt exist: ", dbUser)
+    res.send({status:false, message:'wrong email'})
+  }
 }
