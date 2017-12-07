@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
 require('./form.scss');
-import Library from './Library';
+import {Link} from 'react-router-dom';
 
 export default class Form extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
 		return (
       <div>
-        {!this.props.browsing ?
-        <div>
-          <h2>Upload your files</h2>
-          <form>
-            <div className="file-input-container">
-              <input type="file" onChange={this.props.handleImageChange} multiple/>
-            </div>
-            <button className="submit" type="submit" onClick={this.props.handleSubmit}>Upload</button>
-
-            <h2>Find your files</h2>
-            <button className="submit" type="submit" onClick={this.props.browse}>Library</button>
-          </form>
-        </div>
-        :
-        <Library files={this.props.files} clearState={this.props.clearState}/>
-        }
+        <h2>Upload your files</h2>
+        <form>
+          <div className="file-input-container">
+            <input type="file" onChange={this.props.handleImageChange} multiple/>
+          </div>
+          <Link className="submit" type="submit" to="/myfiles" onClick={this.props.handleSubmit}>Upload</Link>
+          <h2>Find your files</h2>
+          <Link  className="submit" to="/library" onClick={this.props.browse}>Library</Link>
+        </form>
       </div>
 		);
 	}

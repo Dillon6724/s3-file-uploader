@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import Loading from './Loading.js';
 import Header from './Header.js';
 import Form from './Form.js';
 import Links from './Links.js';
-import Login from './Login'
+import Library from './Library.js'
+import Login from './Login';
+import Auth from './Auth.js'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  Switch,
+  withRouter
+} from 'react-router-dom'
+
 
 export default class App extends Component {
   constructor(props) {
@@ -17,17 +27,12 @@ export default class App extends Component {
       browsingFiles: [],
       username: "",
       password: "",
-      auth: {
-        status:false,
-        message:""
-      }
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearState = this.clearState.bind(this);
     this.browse = this.browse.bind(this);
     this.login = this.login.bind(this);
-
   }
 
   getFiles(files) {
@@ -52,7 +57,6 @@ export default class App extends Component {
   }
 
   async handleSubmit(e) {
-    e.preventDefault();
     if (this.state.files.length > 0){
       this.setState({loading: true})
       const paths = []
@@ -75,10 +79,13 @@ export default class App extends Component {
   }
 
   async browse (e) {
-    e.preventDefault();
-    const res = await fetch("http://localhost:3000/files",{ method: "get"})
-     const files = await res.json()
     this.setState({
+      loading: true
+    })
+    const res = await fetch("http://localhost:3000/files",{ method: "get"})
+    const files = await res.json()
+    this.setState({
+      loading: false,
       browsing: true,
       browsingFiles: files.data.sort((a, b) => a.Key.localeCompare(b.Key)),
     })
@@ -103,51 +110,61 @@ export default class App extends Component {
     })
   }
 
-   authenticate (username, password) {
-     return fetch("http://localhost:3000/login", {
+  authenticate (username, password) {
+    fetch("http://localhost:3000/login", {
           method: "POST",
           body: JSON.stringify({username, password}),
           headers: {
             'Content-Type': 'application/json'
           }
+    }).then((res)=> {return res.json()}).then((data) => {
     })
-    .then((data) => {return data.json()})
-    .then((res) => {
-      console.log(res)
-    })
-  }
-
-  isLoggedIn (username, password) {
-
-
   }
 
   render() {
-    this.isLoggedIn(this.state.username, this.state.password)
     return (
-      <div>
+      <Router>
+        <div>
           <Header />
-        {   this.authenticate(this.stateusername, this.state.password).then((res) => {console.log(res)})}
-            this.authenticate(this.state.username, this.state.password) && this.state.loading ?
-            <Loading />
-          :  this.authenticate(this.state.username, this.state.password) && this.state.paths.length > 0 ?
-            <Links
-              paths={this.state.paths}
-              clearState={this.clearState}
+          <Switch>
+            <Route
+              exact path='/'
+              render={(props) => (
+                <Form handleSubmit={this.handleSubmit}
+                 handleImageChange={this.handleImageChange}
+                 browsing={this.state.browsing}
+                 browse={this.browse}
+                 clearState={this.clearState}
+                 files={this.state.browsingFiles} />
+               )}
+             />
+            <Route
+              path='/login'
+              component = {Login}
+              login={this.login}
             />
-          : this.authenticate(this.state.username, this.state.password) ?
-            <Form
-              handleSubmit={this.handleSubmit}
-              handleImageChange={this.handleImageChange}
-              browsing={this.state.browsing}
-              browse={this.browse}
-              clearState={this.clearState}
-              files={this.state.browsingFiles}
+            <Route
+              path='/library'
+              render={(props) =>
+                <Library
+                  files={this.state.browsingFiles}
+                  clearState={this.clearState}
+                  loading={this.state.loading}
+                />
+              }
             />
-          :
-            <Login login={this.login}/>
-          }
+            <Route
+              exact path='/myfiles'
+              render={(props) => (
+                <Links
+                  paths={this.state.paths}
+                  clearState={this.clearState}
+                  loading={this.state.loading}
+                />)}
+            />
+          </Switch>
         </div>
+      </Router>
     );
 	}
 }

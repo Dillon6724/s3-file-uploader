@@ -6,13 +6,14 @@ module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devServer: {
    contentBase: './src',
  },
  plugins: [
-   new DashboardPlugin(),  
+   new DashboardPlugin(),
    new HtmlWebpackPlugin({
     template: 'src/index.html'
   }),
@@ -36,6 +37,9 @@ module.exports = {
      }
    ],
  },
+ devServer: {
+  historyApiFallback: true,
+},
  resolve: {
   extensions: ['.js', '.jsx'],
 }
