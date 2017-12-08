@@ -25,8 +25,7 @@ export default class App extends Component {
       loading: false,
       browsing: false,
       browsingFiles: [],
-      username: "",
-      password: "",
+      redirectToReferrer: false
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,6 +56,8 @@ export default class App extends Component {
   }
 
   async handleSubmit(e) {
+    this.setState({submitted: true})
+    e.preventDefault();
     if (this.state.files.length > 0){
       this.setState({loading: true})
       const paths = []
@@ -75,10 +76,12 @@ export default class App extends Component {
       paths: [],
       loading: false,
       browsing:false,
+      submitted: false
     })
   }
 
   async browse (e) {
+    e.preventDefault();
     this.setState({
       loading: true
     })
@@ -98,73 +101,44 @@ export default class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then((data) => {
-      return data.json()
-    }).then((res) => {
+    }).then((data) => {return data.json()})
+      .then((res) => {
       if (res.status) {
         console.log("login", res)
-        this.setState({username, password})
+        //  this.setState({ redirectToReferrer: true })
       } else {
         this.setState({loginError: res.message})
       }
     })
   }
 
-  authenticate (username, password) {
-    fetch("http://localhost:3000/login", {
-          method: "POST",
-          body: JSON.stringify({username, password}),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-    }).then((res)=> {return res.json()}).then((data) => {
-    })
-  }
-
   render() {
     return (
-      <Router>
-        <div>
-          <Header />
-          <Switch>
-            <Route
-              exact path='/'
-              render={(props) => (
-                <Form handleSubmit={this.handleSubmit}
-                 handleImageChange={this.handleImageChange}
-                 browsing={this.state.browsing}
-                 browse={this.browse}
-                 clearState={this.clearState}
-                 files={this.state.browsingFiles} />
-               )}
-             />
-            <Route
-              path='/login'
-              component = {Login}
-              login={this.login}
-            />
-            <Route
-              path='/library'
-              render={(props) =>
-                <Library
-                  files={this.state.browsingFiles}
-                  clearState={this.clearState}
-                  loading={this.state.loading}
-                />
-              }
-            />
-            <Route
-              exact path='/myfiles'
-              render={(props) => (
-                <Links
-                  paths={this.state.paths}
-                  clearState={this.clearState}
-                  loading={this.state.loading}
-                />)}
-            />
-          </Switch>
-        </div>
-      </Router>
+      <div>
+        <Header />
+        {this.state.browsing ?
+          <Library
+            loading={this.state.loading}
+            files={this.state.browsingFiles}
+            clearState={this.clearState}
+          />
+        : this.state.submitted ?
+          <Links
+            loading={this.state.loading}
+            paths={this.state.paths}
+            clearState={this.clearState}
+          />
+        :
+        <Form
+           handleSubmit={this.handleSubmit}
+           handleImageChange={this.handleImageChange}
+           browsing={this.state.browsing}
+           browse={this.browse}
+           clearState={this.clearState}
+           files={this.state.browsingFiles}
+         />
+       }
+     </div>
     );
 	}
 }

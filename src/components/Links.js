@@ -18,7 +18,7 @@ export default class Links extends Component {
             {this.props.paths.map((string, i) => {
                return <Path key={i} pathToFile={string} />
             })}
-            <Link to="/" className="upload" onClick={this.props.clearState}>Upload Some More</Link>
+            <button className="upload" onClick={this.props.clearState}>Upload Some More</button>
           </div>
         }
       </div>

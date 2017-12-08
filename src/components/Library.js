@@ -17,7 +17,7 @@ export default class Browse extends Component {
           {this.props.files.map((file, i)=> {
            return <File name={file.Key} key={i}/>
           })}
-          <Link to="/" className="back-button" onClick={this.props.clearState}>Back</Link>
+          <button className="back-button" onClick={this.props.clearState}>Back</button>
         </div>
         }
       </div>
