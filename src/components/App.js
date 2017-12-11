@@ -31,7 +31,6 @@ export default class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearState = this.clearState.bind(this);
     this.browse = this.browse.bind(this);
-    this.login = this.login.bind(this);
   }
 
   getFiles(files) {
@@ -83,13 +82,13 @@ export default class App extends Component {
   async browse (e) {
     e.preventDefault();
     this.setState({
+      browsing: true,
       loading: true
     })
     const res = await fetch("http://localhost:3000/files",{ method: "get"})
     const files = await res.json()
     this.setState({
       loading: false,
-      browsing: true,
       browsingFiles: files.data.sort((a, b) => a.Key.localeCompare(b.Key)),
     })
   }

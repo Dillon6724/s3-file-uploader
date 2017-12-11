@@ -15,7 +15,7 @@ knex.schema.createTable('users', function(table) {
 
 
 bcrypt.genSalt(10, function(err, salt) {
-  bcrypt.hash('992174039Uu', salt, function(err, hash) {
-    knex.insert({user_name: 'dmcguire@emmisdigital.com', password: hash}).into('users').then(()=> {});
+  bcrypt.hash(password, salt, function(err, hash) {
+    knex.insert({user_name: email, password: hash}).into('users').then(()=> {});
   });
 });
