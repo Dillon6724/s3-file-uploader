@@ -16,5 +16,5 @@ exports.getUser = async (user) => {
 }
 
 const userQuery = async (user) => {
-  return await knex('users').where({user_name: user.username})
+  return await knex('users').where({user_name: user.user_name})
 }

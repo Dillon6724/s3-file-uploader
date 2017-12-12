@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-import 'whatwg-fetch';
 import Header from './Header.js';
 import Form from './Form.js';
 import Links from './Links.js';
 import Library from './Library.js'
-import Login from './Login';
-import Auth from './Auth.js'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  Switch,
-  withRouter
-} from 'react-router-dom'
-
+import 'whatwg-fetch';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,7 +14,7 @@ export default class App extends Component {
       loading: false,
       browsing: false,
       browsingFiles: [],
-      redirectToReferrer: false
+      submitted:false
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,10 +44,9 @@ export default class App extends Component {
   }
 
   async handleSubmit(e) {
-    this.setState({submitted: true})
     e.preventDefault();
     if (this.state.files.length > 0){
-      this.setState({loading: true})
+      this.setState({loading: true, submitted: true})
       const paths = []
       for (var i = 0; i < this.state.files.length; i++) {
         let file = this.state.files[i];
@@ -90,24 +78,6 @@ export default class App extends Component {
     this.setState({
       loading: false,
       browsingFiles: files.data.sort((a, b) => a.Key.localeCompare(b.Key)),
-    })
-  }
-
-  async login(username, password) {
-    const res = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      body: JSON.stringify({username, password}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((data) => {return data.json()})
-      .then((res) => {
-      if (res.status) {
-        console.log("login", res)
-        //  this.setState({ redirectToReferrer: true })
-      } else {
-        this.setState({loginError: res.message})
-      }
     })
   }
 

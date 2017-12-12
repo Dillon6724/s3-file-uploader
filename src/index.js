@@ -1,6 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
+import ReactDOM from 'react-dom'
 import App from './components/App';
+import 'whatwg-fetch';
+require('./login.scss')
 import {
   BrowserRouter as Router,
   Route,
@@ -18,31 +21,25 @@ const Auth = () => (
   </Router>
 )
 
-const fakeAuth = {
+const authObj = {
   isAuthenticated: false,
-  authenticate(cb) {
+  async authenticate(email, password) {
     this.isAuthenticated = true
-    setTimeout(cb, 100) // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
+    const call = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      body: JSON.stringify({user_name: email, password}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    return call.json()
   }
 }
 
-const AuthButton = withRouter(({ history }) => (
-  fakeAuth.isAuthenticated ? (
-    <div>
-      <App/>
-    </div>
-  ) : (
-    <p>You are not logged in.</p>
-  )
-))
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? (
+    authObj.isAuthenticated ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
@@ -57,37 +54,43 @@ class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      redirectToReferrer: false
+      redirectToReferrer: false,
+      loginError: false
     }
     this.login = this.login.bind(this)
   }
 
-  login (e) {
-    console.log("login")
+  async login (e) {
+    const email = ReactDOM.findDOMNode(this.refs.email).value;
+    const password = ReactDOM.findDOMNode(this.refs.password).value;
     e.preventDefault();
-    fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true })
-    })
+    const res = await authObj.authenticate(email, password);
+    if (res.status) {
+      this.setState({redirectToReferrer: true})
+    } else {
+      this.setState({loginError: res.message})
+    }
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
-    const { redirectToReferrer } = this.state
-
-    if (redirectToReferrer) {
-      return (
-        <Redirect to={"/"} />
-      )
-    }
-
     return (
       <div>
-        <h2>Login, brah</h2>
-        <form onSubmit={this.login}>
-          <input ref="username" className="login-input" type="email" placeholder="Email"/>
-          <input ref="password" className="login-input" type="password" placeholder="Password" />
-          <input className="submit" type="submit" value="Login" />
-        </form>
+      {this.state.redirectToReferrer ?
+        <Redirect to={"/"} />
+      :
+        <div>
+          <header>
+            <img src="http://base.emmis.acsitefactory.com/sites/all/modules/custom/emmis_theme/logos/base.png"/>
+          </header>
+          <h2>Login, brah</h2>
+          <div className="error">{this.state.loginError}</div>
+          <form onSubmit={this.login}>
+            <input ref="email" className="login-input" type="email" placeholder="Email"/>
+            <input ref="password" className="login-input" type="password" placeholder="Password" />
+            <input className="submit" type="submit" value="Login" />
+          </form>
+        </div>
+      }
       </div>
     )
   }

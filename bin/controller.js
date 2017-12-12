@@ -68,11 +68,11 @@ exports.login = async (req, res) => {
         res.send({status:true, message:'success'})
       } else {
         console.log("passords dont match")
-        res.send({status:false, message:'password not matching'})
+        res.send({status:false, message:'Incorrect email & password combo'})
       }
     });
   } else {
     console.log("email doesnt exist: ", dbUser)
-    res.send({status:false, message:'wrong email'})
+    res.send({status:false, message:'Incorrect email & password combo'})
   }
 }
