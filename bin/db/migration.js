@@ -8,11 +8,13 @@ const knex = require('knex')({
 	useNullAsDefault: true
 });
 
- knex.schema.createTable('users', function(table) {
-   table.increments('id');
-   table.string('user_name');
-   table.string('password');
- }).then((res) => {})
+knex.schema
+	.createTable('users', function(table) {
+		table.increments('id');
+		table.string('user_name');
+		table.string('password');
+	})
+	.then(res => {});
 
 bcrypt.genSalt(10, function(err, salt) {
 	bcrypt.hash(user.password, salt, function(err, hash) {
