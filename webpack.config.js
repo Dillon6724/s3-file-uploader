@@ -55,7 +55,9 @@ const commonConfig = {
 
 if (prod) {
 	module.exports = merge(commonConfig, {
-		plugins: []
+		output: {
+			publicPath: './'
+		}
 	});
 } else {
 	module.exports = merge(commonConfig, {
