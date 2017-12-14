@@ -4,7 +4,7 @@ import File from './File.js';
 import Loading from './Loading.js';
 import { Link } from 'react-router-dom';
 
-export default class Browse extends Component {
+export default class Library extends Component {
 	render() {
 		return (
 			<div>

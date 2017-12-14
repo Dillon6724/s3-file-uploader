@@ -19,7 +19,7 @@ export default class App extends Component {
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.clearState = this.clearState.bind(this);
-		this.browse = this.browse.bind(this);
+		this.loadLibrary = this.loadLibrary.bind(this);
 	}
 
 	getFiles(files) {
@@ -71,7 +71,7 @@ export default class App extends Component {
 		});
 	}
 
-	async browse(e) {
+	async loadLibrary(e) {
 		e.preventDefault();
 		this.setState({
 			browsing: true,
@@ -106,7 +106,7 @@ export default class App extends Component {
 						handleSubmit={this.handleSubmit}
 						handleImageChange={this.handleImageChange}
 						browsing={this.state.browsing}
-						browse={this.browse}
+						loadLibrary={this.loadLibrary}
 						clearState={this.clearState}
 						files={this.state.browsingFiles}
 					/>

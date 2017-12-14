@@ -26,7 +26,7 @@ export default class Form extends Component {
 						Upload
 					</button>
 					<h2>Find your files</h2>
-					<button className="submit" onClick={this.props.browse}>
+					<button className="submit" onClick={this.props.loadLibrary}>
 						Library
 					</button>
 				</form>

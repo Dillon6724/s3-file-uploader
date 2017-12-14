@@ -86,7 +86,7 @@ class Login extends React.Component {
 						<header>
 							<img src="http://base.emmis.acsitefactory.com/sites/all/modules/custom/emmis_theme/logos/base.png" />
 						</header>
-						<h2>Login, brah</h2>
+						<h2>Login</h2>
 						<div className="error">{this.state.loginError}</div>
 						<form onSubmit={this.login}>
 							<input
