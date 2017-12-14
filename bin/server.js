@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const multipart = require('connect-multiparty'); //allows us to access file data
 const multipartMiddleware = multipart();
 const cors = require('cors');
+const config = require('../config');
 
 // middleware
 app.use(cors());
@@ -31,6 +32,6 @@ app.get('/', (req, res) => {
 	res.send('Lemme lemme upload ya');
 });
 
-app.listen(3000, () => {
-	console.log('listening on 3000');
+app.listen(config.port, () => {
+	console.log('listening on ' + config.port);
 });
