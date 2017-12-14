@@ -5,23 +5,27 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dashboard webpack-dev-server --hot --inline --content-base src/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env NODE_ENV=production npm run clean && webpack",
+    "clean": "rimraf dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.0.16",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "css-loader": "^0.28.7",
+    "eslint": "^4.13.1",
+    "eslint-plugin-react": "^7.5.1",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.6.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
-    "webpack": "^3.8.1",
+    "webpack": "^3.10.0",
     "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.9.4"
   },
@@ -41,6 +45,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
-    "sqlite3": "^3.1.13"
+    "sqlite3": "^3.1.13",
+    "webpack-merge": "^4.1.1"
   }
 }

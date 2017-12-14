@@ -1,11 +1,11 @@
-const bcrypt = require('bcrypt')
-const user = require('./user.json')
+const bcrypt = require('bcrypt');
+const user = require('./user.json');
 const knex = require('knex')({
-  dialect: 'sqlite3',
-  connection: {
-    filename: './bin/db/data.db'
-  },
-  useNullAsDefault: true
+	dialect: 'sqlite3',
+	connection: {
+		filename: './bin/db/data.db'
+	},
+	useNullAsDefault: true
 });
 
 // knex.schema.createTable('users', function(table) {
@@ -14,9 +14,11 @@ const knex = require('knex')({
 //   table.string('password');
 // }).then((res) => {})
 
-
 bcrypt.genSalt(10, function(err, salt) {
-  bcrypt.hash(user.password, salt, function(err, hash) {
-    knex.insert({user_name: user.email, password: hash}).into('users').then(()=> {});
-  });
+	bcrypt.hash(user.password, salt, function(err, hash) {
+		knex
+			.insert({ user_name: user.email, password: hash })
+			.into('users')
+			.then(() => {});
+	});
 });

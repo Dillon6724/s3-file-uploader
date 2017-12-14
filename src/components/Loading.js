@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-require('./loading.scss')
+require('./loading.scss');
 
 export default class Loading extends Component {
-  render() {
+	render() {
 		return (
-      <div>
-        <img className="loader" src="http://base.emmis.acsitefactory.com/sites/g/files/exi266/f/201711/logo.png"/>
-      </div>
+			<div>
+				<img
+					className="loader"
+					src="http://base.emmis.acsitefactory.com/sites/g/files/exi266/f/201711/logo.png"
+				/>
+			</div>
 		);
 	}
 }
