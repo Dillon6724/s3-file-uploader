@@ -82,7 +82,7 @@ class Login extends React.Component {
 		return (
 			<div>
 				{this.state.redirectToReferrer ? (
-					<Redirect to={'/'} />
+					<Redirect to={'/upload'} />
 				) : (
 					<div>
 						<header>
