@@ -32,6 +32,6 @@ app.get('/', (req, res) => {
 	res.send('Lemme lemme upload ya');
 });
 
-app.listen(config.port, () => {
-	console.log('listening on ' + config.port);
+app.listen(4200, () => {
+	console.log('listening on ' + config.url);
 });

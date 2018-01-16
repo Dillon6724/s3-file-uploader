@@ -40,7 +40,7 @@ export default class App extends Component {
 	async sendFile(file) {
 		let imageFormData = new FormData();
 		imageFormData.append('imageFile', file);
-		const res = await fetch(`http://localhost:${config.port}/login`, {
+		const res = await fetch(`${config.url}/login`, {
 			method: 'POST',
 			body: imageFormData
 		});
@@ -78,7 +78,7 @@ export default class App extends Component {
 			browsing: true,
 			loading: true
 		});
-		const res = await fetch(`http://localhost:${config.port}/login`, {
+		const res = await fetch(`${config.url}/login`, {
 			method: 'get'
 		});
 		const files = await res.json();

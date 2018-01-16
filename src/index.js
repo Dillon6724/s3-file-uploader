@@ -27,7 +27,7 @@ const authObj = {
 	isAuthenticated: false,
 	async authenticate(email, password) {
 		this.isAuthenticated = true;
-		const call = await fetch(`http://localhost:${config.port}/login`, {
+		const call = await fetch(`${config.url}/login`, {
 			method: 'POST',
 			body: JSON.stringify({ user_name: email, password }),
 			headers: {
