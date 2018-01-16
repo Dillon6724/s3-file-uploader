@@ -17,7 +17,6 @@ const commonConfig = {
 		contentBase: './src'
 	},
 	plugins: [
-		new DashboardPlugin(),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html'
 		})
