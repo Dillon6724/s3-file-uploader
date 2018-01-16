@@ -17,8 +17,8 @@ import {
 const Auth = () => (
 	<Router>
 		<div>
-			<Route path="/login" component={Login} />
-			<PrivateRoute exact path="/" component={App} />
+			<Route path="/upload/login" component={Login} />
+			<PrivateRoute exact path="/upload/" component={App} />
 		</div>
 	</Router>
 );
@@ -47,7 +47,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 			) : (
 				<Redirect
 					to={{
-						pathname: '/login',
+						pathname: '/upload/login',
 						state: { from: props.location }
 					}}
 				/>
