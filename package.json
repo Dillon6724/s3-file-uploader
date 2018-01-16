@@ -6,7 +6,7 @@
 	"scripts": {
 		"start":
 			"webpack-dashboard webpack-dev-server --hot --inline --content-base src/",
-		"build": "cross-env NODE_ENV=production npm run clean && webpack",
+		"build": "export NODE_ENV=production npm run clean && webpack",
 		"clean": "rimraf dist"
 	},
 	"author": "",
