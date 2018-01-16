@@ -3,6 +3,7 @@ import Header from './Header.js';
 import Form from './Form.js';
 import Links from './Links.js';
 import Library from './Library.js';
+const config = require('../../config');
 import 'whatwg-fetch';
 
 export default class App extends Component {
@@ -39,7 +40,7 @@ export default class App extends Component {
 	async sendFile(file) {
 		let imageFormData = new FormData();
 		imageFormData.append('imageFile', file);
-		const res = await fetch('http://localhost:4200/upload', {
+		const res = await fetch(`http://localhost:${config.port}/login`, {
 			method: 'POST',
 			body: imageFormData
 		});
@@ -77,7 +78,9 @@ export default class App extends Component {
 			browsing: true,
 			loading: true
 		});
-		const res = await fetch('http://localhost:4200/files', { method: 'get' });
+		const res = await fetch(`http://localhost:${config.port}/login`, {
+			method: 'get'
+		});
 		const files = await res.json();
 		this.setState({
 			loading: false,

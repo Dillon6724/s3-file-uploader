@@ -8,31 +8,26 @@ const prod = process.env.NODE_ENV === 'production' ? 'true' : 'false' || false;
 
 const commonConfig = {
 	entry: ['babel-polyfill', './src/index.js'],
-
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
 		publicPath: '/'
 	},
-
 	devServer: {
-		contentBase: './src',
-		historyApiFallback: true
+		contentBase: './src'
 	},
-
+	plugins: [
+		new DashboardPlugin(),
+		new HtmlWebpackPlugin({
+			template: 'src/index.html'
+		})
+	],
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: ['env', 'react', 'stage-3']
-						}
-					}
-				]
+				use: ['babel-loader']
 			},
 			{
 				test: /\.(css|sass|scss)$/,
@@ -40,14 +35,9 @@ const commonConfig = {
 			}
 		]
 	},
-
-	plugins: [
-		new DashboardPlugin(),
-		new HtmlWebpackPlugin({
-			template: 'src/index.html'
-		})
-	],
-
+	devServer: {
+		historyApiFallback: true
+	},
 	resolve: {
 		extensions: ['.js', '.jsx']
 	}
@@ -56,7 +46,7 @@ const commonConfig = {
 if (prod) {
 	module.exports = merge(commonConfig, {
 		output: {
-			publicPath: './'
+			publicPath: '/'
 		}
 	});
 } else {

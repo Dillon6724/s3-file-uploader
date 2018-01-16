@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import 'whatwg-fetch';
 require('./login.scss');
+const config = require('../config');
+
 import {
 	BrowserRouter as Router,
 	Route,
@@ -25,7 +27,7 @@ const authObj = {
 	isAuthenticated: false,
 	async authenticate(email, password) {
 		this.isAuthenticated = true;
-		const call = await fetch('http://localhost:3000/login', {
+		const call = await fetch(`http://localhost:${config.port}/login`, {
 			method: 'POST',
 			body: JSON.stringify({ user_name: email, password }),
 			headers: {
