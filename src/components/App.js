@@ -78,7 +78,7 @@ export default class App extends Component {
 			browsing: true,
 			loading: true
 		});
-		const res = await fetch(`${config.url}/login`, {
+		const res = await fetch(`${config.url}/files`, {
 			method: 'get'
 		});
 		const files = await res.json();
