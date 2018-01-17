@@ -40,7 +40,7 @@ export default class App extends Component {
 	async sendFile(file) {
 		let imageFormData = new FormData();
 		imageFormData.append('imageFile', file);
-		const res = await fetch(`${config.url}/login`, {
+		const res = await fetch(`${config.url}/upload`, {
 			method: 'POST',
 			body: imageFormData
 		});
