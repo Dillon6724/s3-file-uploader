@@ -18,22 +18,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
-app.post('/upload/upload', multipartMiddleware, (req, res) => {
+app.post('/upload', multipartMiddleware, (req, res) => {
 	// res.setHeader('Access-Control-Allow-Origin', '*');
 	controller.upload(req.files.imageFile, res);
 });
 
-app.post('/upload/login', (req, res) => {
+app.post('/login', (req, res) => {
 	// res.setHeader('Access-Control-Allow-Origin', '*');
 	controller.login(req, res);
 });
 
-app.get('/upload/files', (req, res) => {
+app.get('/files', (req, res) => {
 	// res.setHeader('Access-Control-Allow-Origin', '*');
 	controller.getFiles(res);
 });
 
-app.get('/upload', (req, res) => {
+app.get('/', (req, res) => {
 	res.send('Lemme lemme upload ya');
 });
 
