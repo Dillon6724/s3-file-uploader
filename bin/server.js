@@ -9,27 +9,29 @@ const config = require('../config');
 
 var corsOptions = {
 	origin: 'http://emmisdigital.com',
-	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+	optionsSuccessStatus: 200
 };
 
 // middleware
-// app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
 app.post('/upload', multipartMiddleware, (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'http://emmisdigital.com');
 	controller.upload(req.files.imageFile, res);
 });
 
 app.post('/login', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'http://emmisdigital.com');
+	if (req.method === 'OPTIONS') {
+		return res.status(200).end();
+	}
 	controller.login(req, res);
 });
 
 app.get('/files', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', 'http://emmisdigital.com');
 	controller.getFiles(res);
 });
 
