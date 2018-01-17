@@ -21,6 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
 app.post('/upload', multipartMiddleware, (req, res) => {
+	if (req.method === 'OPTIONS') {
+		return res.status(200).end();
+	}
 	controller.upload(req.files.imageFile, res);
 });
 
