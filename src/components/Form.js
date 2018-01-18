@@ -10,6 +10,7 @@ export default class Form extends Component {
 		return (
 			<div>
 				<h2>Upload your files</h2>
+				<h2 className="form-error">{this.props.error}</h2>
 				<form>
 					<div className="file-input-container">
 						<input

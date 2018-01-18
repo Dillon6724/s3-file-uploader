@@ -34,7 +34,15 @@ export default class App extends Component {
 	handleImageChange(e) {
 		e.preventDefault();
 		const files = this.getFiles(e.target.files);
-		this.setState({ files });
+		for (var i = 0; i < files.length; i++) {
+			if (files[i].size < 1073741824) {
+				this.setState({ files });
+			} else {
+				this.setState({
+					loginError: 'Each file must be less than 1G'
+				});
+			}
+		}
 	}
 
 	async sendFile(file) {
@@ -54,11 +62,14 @@ export default class App extends Component {
 			const paths = [];
 			for (var i = 0; i < this.state.files.length; i++) {
 				let file = this.state.files[i];
+				console.log(file);
 				const data = await this.sendFile(file);
 				paths.push(data.path);
 				if (i === this.state.files.length - 1)
 					this.setState({ paths, loading: false, browsingFiles: [] });
 			}
+		} else {
+			this.setState({ loginError: 'Please select a file to upload' });
 		}
 	}
 
@@ -91,7 +102,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div>
-				<Header />
+				<Header clearState={this.clearState} />
 				{this.state.browsing ? (
 					<Library
 						loading={this.state.loading}
@@ -112,6 +123,7 @@ export default class App extends Component {
 						loadLibrary={this.loadLibrary}
 						clearState={this.clearState}
 						files={this.state.browsingFiles}
+						error={this.state.loginError}
 					/>
 				)}
 			</div>
