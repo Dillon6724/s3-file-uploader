@@ -63,7 +63,6 @@ export default class App extends Component {
 			const paths = [];
 			for (var i = 0; i < this.state.files.length; i++) {
 				let file = this.state.files[i];
-				console.log(file);
 				const data = await this.sendFile(file);
 				paths.push(data.path);
 				if (i === this.state.files.length - 1)
