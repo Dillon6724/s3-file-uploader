@@ -15,7 +15,8 @@ export default class App extends Component {
 			loading: false,
 			browsing: false,
 			browsingFiles: [],
-			submitted: false
+			submitted: false,
+			loginError: ''
 		};
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,7 +80,8 @@ export default class App extends Component {
 			paths: [],
 			loading: false,
 			browsing: false,
-			submitted: false
+			submitted: false,
+			loginError: ''
 		});
 	}
 

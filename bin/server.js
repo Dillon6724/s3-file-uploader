@@ -8,7 +8,7 @@ const cors = require('cors');
 const config = require('../config');
 
 var corsOptions = {
-	origin: 'http://emmisdigital.com',
+	origin: 'http://localhost:8080',
 	optionsSuccessStatus: 200
 };
 
