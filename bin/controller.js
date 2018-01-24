@@ -8,7 +8,7 @@ const db = require('./db/queries.js');
 const bcrypt = require('bcrypt');
 
 exports.upload = async (file, res) => {
-	s3.listObjects({ Bucket: 'emmisdigitalfileuploader' }, async (err, data) => {
+	s3.listObjects({ Bucket: 'dillonfileuploader' }, async (err, data) => {
 		createUniqueTitle(data, file.originalFilename, 0, file, res);
 	});
 };
@@ -28,7 +28,7 @@ const createUniqueTitle = async (data, title, int, file, res) => {
 
 const uploadFileToS3 = async (title, file, res) => {
 	const params = {
-		Bucket: 'emmisdigitalfileuploader',
+		Bucket: 'dillonfileuploader',
 		Key: title,
 		ACL: 'public-read',
 		Body: fs.createReadStream(file.path),
@@ -40,7 +40,7 @@ const uploadFileToS3 = async (title, file, res) => {
 		} else {
 			console.log('Success: ', data, '\n');
 			res.send({
-				path: `https://s3.amazonaws.com/emmisdigitalfileuploader/${title}`
+				path: `https://s3.us-east-2.amazonaws.com/dillonfileuploader/${title}`
 			});
 		}
 	});
@@ -55,7 +55,7 @@ const iterateOnTitle = (oldTitle, int) => {
 };
 
 exports.getFiles = async res => {
-	s3.listObjects({ Bucket: 'emmisdigitalfileuploader' }, async (err, data) => {
+	s3.listObjects({ Bucket: 'dillonfileuploader' }, async (err, data) => {
 		res.send({ data: data.Contents });
 	});
 };

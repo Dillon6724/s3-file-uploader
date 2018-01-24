@@ -5,10 +5,7 @@ export default class Header extends Component {
 	render() {
 		return (
 			<header>
-				<img
-					onClick={this.props.clearState}
-					src="http://base.emmis.acsitefactory.com/sites/all/modules/custom/emmis_theme/logos/base.png"
-				/>
+				<h1 onClick={this.props.clearState}>File Uploader</h1>
 				<a className="logout" href="/upload/login">
 					log out
 				</a>

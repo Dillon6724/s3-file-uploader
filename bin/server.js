@@ -8,7 +8,7 @@ const cors = require('cors');
 const config = require('../config');
 
 var corsOptions = {
-	origin: 'http://emmisdigital.com',
+	origin: 'http://localhost:8080',
 	optionsSuccessStatus: 200
 };
 
@@ -42,6 +42,6 @@ app.get('/', (req, res) => {
 	res.send('Lemme lemme upload ya');
 });
 
-app.listen(4200, () => {
+app.listen(3000, () => {
 	console.log('listening on ' + config.url);
 });

@@ -86,7 +86,7 @@ class Login extends React.Component {
 				) : (
 					<div>
 						<header>
-							<img src="http://base.emmis.acsitefactory.com/sites/all/modules/custom/emmis_theme/logos/base.png" />
+							<h1>File Uploader</h1>
 						</header>
 						<h2>Login</h2>
 						<div className="error">{this.state.loginError}</div>

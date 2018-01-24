@@ -7,7 +7,7 @@ export default class Loading extends Component {
 			<div>
 				<img
 					className="loader"
-					src="http://base.emmis.acsitefactory.com/sites/g/files/exi266/f/201711/logo.png"
+					src="https://s3.us-east-2.amazonaws.com/dillonfileuploader/loading.gif"
 				/>
 			</div>
 		);
