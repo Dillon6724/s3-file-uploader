@@ -17,8 +17,8 @@ import {
 const Auth = () => (
 	<Router>
 		<div>
-			<Route path="/upload/login" component={Login} />
-			<PrivateRoute exact path="/upload/" component={App} />
+			<Route path="/login" component={Login} />
+			<PrivateRoute exact path="/" component={App} />
 		</div>
 	</Router>
 );
@@ -47,7 +47,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 			) : (
 				<Redirect
 					to={{
-						pathname: '/upload/login',
+						pathname: '/login',
 						state: { from: props.location }
 					}}
 				/>
@@ -82,7 +82,7 @@ class Login extends React.Component {
 		return (
 			<div>
 				{this.state.redirectToReferrer ? (
-					<Redirect to={'/upload'} />
+					<Redirect to={'/'} />
 				) : (
 					<div>
 						<header>
