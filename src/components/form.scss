@@ -1,8 +1,8 @@
 form {
-	max-width: 330px;
+	max-width: 400px;
 	margin: 0 auto;
 	.file-input-container {
-		background-color: #c9cbd1;
+		background-color: #00a1e6;
 		padding: 30px;
 		input {
 			font-size: 13px;
@@ -14,7 +14,6 @@ form {
 			border: 1px dashed;
 			padding-top: 40px;
 			padding: 40px 20px 0px;
-			opacity: 0.6;
 			cursor: pointer;
 		}
 	}
@@ -23,15 +22,16 @@ form {
 		border: none;
 		border-radius: 0;
 		width: 100%;
-		background-color: #2889c3;
+		background-color: #cb0002;
 		height: 40px;
 		color: white;
 		font-size: 20px;
 		margin-bottom: 25px;
 		cursor: pointer;
+		font-family: 'Fira Mono', monospace;
 
 		&:hover {
-			background-color: #54a9db;
+			background-color: #a2292b;
 		}
 	}
 }

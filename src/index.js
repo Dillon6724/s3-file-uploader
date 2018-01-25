@@ -88,7 +88,6 @@ class Login extends React.Component {
 						<header>
 							<h1>File Uploader</h1>
 						</header>
-						<h2>Login</h2>
 						<div className="error">{this.state.loginError}</div>
 						<form onSubmit={this.login}>
 							<input

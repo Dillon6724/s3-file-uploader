@@ -5,6 +5,7 @@ import Links from './Links.js';
 import Library from './Library.js';
 const config = require('../../config');
 import 'whatwg-fetch';
+require('./app.scss');
 
 export default class App extends Component {
 	constructor(props) {

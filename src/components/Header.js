@@ -6,7 +6,7 @@ export default class Header extends Component {
 		return (
 			<header>
 				<h1 onClick={this.props.clearState}>File Uploader</h1>
-				<a className="logout" href="/upload/login">
+				<a className="logout" href="/login">
 					log out
 				</a>
 			</header>
