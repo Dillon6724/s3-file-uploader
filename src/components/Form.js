@@ -14,6 +14,7 @@ export default class Form extends Component {
 				<form>
 					<div className="file-input-container">
 						<input
+							className="choose-file"
 							type="file"
 							onChange={this.props.handleImageChange}
 							multiple

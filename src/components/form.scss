@@ -5,6 +5,7 @@ form {
 		background-color: #00a1e6;
 		padding: 30px;
 		input {
+			border: none;
 			font-size: 13px;
 			margin: 0 auto;
 			display: block;
@@ -19,7 +20,6 @@ form {
 	}
 
 	.submit {
-		border: none;
 		border-radius: 0;
 		width: 100%;
 		background-color: #cb0002;
@@ -29,7 +29,7 @@ form {
 		margin-bottom: 25px;
 		cursor: pointer;
 		font-family: 'Fira Mono', monospace;
-
+		border: none;
 		&:hover {
 			background-color: #a2292b;
 		}
