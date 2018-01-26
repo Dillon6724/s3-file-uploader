@@ -1,7 +1,7 @@
 const knex = require('knex')({
 	dialect: 'sqlite3',
 	connection: {
-		filename: './bin/db/data.db'
+		filename: './data.db'
 	},
 	useNullAsDefault: true
 });

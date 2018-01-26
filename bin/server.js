@@ -23,7 +23,6 @@ app.post('/upload', multipartMiddleware, (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-	res.send(req.body);
 	// controller.login(req, res);
 });
 
