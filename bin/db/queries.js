@@ -1,7 +1,8 @@
+const path = require('path');
 const knex = require('knex')({
 	dialect: 'sqlite3',
 	connection: {
-		filename: './data.db'
+		filename: path.resolve(__dirname, 'data.db')
 	},
 	useNullAsDefault: true
 });
