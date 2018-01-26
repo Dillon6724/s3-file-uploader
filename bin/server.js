@@ -13,9 +13,8 @@ var corsOptions = {
 };
 
 // middleware
-// app.options('*', cors(corsOptions));
+app.options('*', cors());
 app.use(cors(corsOptions));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
