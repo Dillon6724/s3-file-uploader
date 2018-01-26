@@ -8,7 +8,7 @@ const cors = require('cors');
 const config = require('../config');
 
 var corsOptions = {
-	origin: 'http://localhost:8080',
+	origin: 'http://upload.dillon-mcguire.com',
 	optionsSuccessStatus: 200
 };
 
